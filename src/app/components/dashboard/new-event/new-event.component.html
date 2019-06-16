@@ -1,0 +1,280 @@
+<app-header></app-header>
+
+<div class="container" style="margin-top:100px">
+  <div class="col-md-10 col-sm-12 offset-md-1">
+    <h1 style="font-weight: 100">Criar evento</h1>
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit(eventForm.value)">
+      <!-- Sobre o evento -->
+      <div class="card mb-4 shadow">
+        <div class="card-body">
+          <h2 style="color: #000935">1. Qual nome do evento ?</h2>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="name">Nome</label><span style="color:red">*</span>
+              <input formControlName="name" type="text" class="form-control" id="name"
+                placeholder="Digite aqui o nome do seu evento">
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-bottom:2%">
+
+            <div class="col-md-9">
+
+              <label for="imageLink">Inserir imagem por URL</label><span style="color:red">*</span>
+
+              <div class="input-group">
+                <input (keyup)="onKeyUp($event)" formControlName="imageLink" type="text" class="form-control"
+                  id="imageLink" placeholder="Colar aqui o URL da imagem." required>
+
+              </div>
+
+              <p style="font-size: 11px;" class="bg-secundary">Selecione apenas as imagens que você confirmou ter a
+                licença para usar.</p>
+            </div>
+
+            <div class="col-md-3">
+              <img class="quadrado" src="{{ imagemUrl }}" alt="Imagem não inserida">
+            </div>
+
+          </div>
+
+          <div class="form-row" style="margin-bottom: 2%">
+            <div class="col-md-6">
+
+              <label for="videoLink">Inserir video do YouTube</label><span style="font-size: 11px;"> (Opcional)</span>
+
+              <div class="input-group">
+                <input (keyup)="video($event)" formControlName="videoLink" type="text" class="form-control"
+                  id="videoLink" placeholder="Colar aqui o URL do video.">
+
+              </div>
+
+            </div>
+
+            <!-- <div class="col-md-6">
+              <div class="embed-responsive embed-responsive-16by9 mb-4">
+                <iframe width="560" height="315" src="{{videoUrl}}" frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                  </iframe>
+              </div>
+            </div> -->
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- Datas do evento -->
+      <div class="card mb-4 shadow">
+        <div class="card-body">
+          <h2 style="color: #000935">2. Quando será o evento ?</h2>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="startDate">Data de Inicio</label><span style="color:red">*</span>
+              <input formControlName="startDate" type="date" class="form-control" id="startDate">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="startHour">Hora de Inicio</label><span style="color:red">*</span>
+              <input formControlName="startHour" type="time" class="form-control" id="startHour">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="form-group col-md-3">
+              <label for="endDate">Data Final</label><span style="color:red">*</span>
+              <input formControlName="endDate" type="date" class="form-control" id="endDate">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="endHour">Hora Final</label><span style="color:red">*</span>
+              <input formControlName="endHour" type="time" class="form-control" id="endHour">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Localização do Evento -->
+      <div class="card mb-4 shadow">
+        <div class="card-body">
+          <h2 style="color: #000935">3. Qual a localização do evento ?</h2>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="address">Endereço do Local</label><span style="color:red">*</span>
+              <input formControlName="address" type="text" class="form-control" id="adress"
+                placeholder="Av. Santa Elizabeth 123">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="location">Local</label><span style="color:red">*</span>
+              <input formControlName="location" type="text" class="form-control" id="location"
+                placeholder="Auditório UFPB em Mamanguape">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="city">Cidade</label><span style="color:red">*</span>
+              <select formControlName="city" id="city" class="form-control">
+                <option selected disabled>Escolha...</option>
+                <option>Baía da Traição</option>
+                <option>Mamanguape</option>
+                <option>Marcação</option>
+                <option>Rio Tinto</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complementos do evento -->
+      <div class="card mb-4 shadow">
+        <div class="card-body">
+          <h2 style="color: #000935">4. Complementos do evento.</h2>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="category">Categoria</label><span style="color:red">*</span>
+              <select formControlName="category" id="category" class="form-control">
+                <option selected>Escolha...</option>
+                <option>Gastronômico</option>
+                <option>Religioso</option>
+                <option>Esportivo</option>
+                <option>Festa</option>
+                <option>Congresso</option>
+                <option>Infantil</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="paid">Tipo de ingresso</label><span style="color:red">*</span>
+              <select formControlName="freePaid" id="paid" class="form-control">
+                <option selected disabled>Escolha...</option>
+                <option>Pago</option>
+                <option>Gratuito</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Descrição do evento -->
+      <div class="card mb-4 shadow">
+        <div class="card-body">
+          <h2 style="color: #000935">5. Descreva o evento.</h2>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="description">Descrição</label><span style="color:red">*</span>
+              <textarea formControlName="description" class="form-control" name="description" id="description" rows="2"
+                placeholder="Descreva seu evento..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button [disabled]="!eventForm.valid" type="submit" class="btn btn-primary shadow btnSubmit mb-4 col-sm-12">Criar
+      </button>
+
+    </form>
+  </div>
+</div>
+
+
+<!-- Forms cadastrar evento-->
+<!-- <div class="container">
+  <div class="col-md-10 col-sm-12 offset-1 shadow" style="margin-top: 100px;">
+    <h2 style="text-align:center;">Novo evento</h2><br>
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit(eventForm.value)">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="name">Nome</label><span style="color:red">*</span>
+          <input formControlName="name" type="text" class="form-control" id="name"
+            placeholder="Digite aqui o nome do seu evento">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="category">Categoria</label><span style="color:red">*</span>
+          <select formControlName="category" id="category" class="form-control">
+            <option selected>Escolha...</option>
+            <option>Gastronômico</option>
+            <option>Religioso</option>
+            <option>Esportivo</option>
+            <option>Festa</option>
+            <option>Congresso</option>
+            <option>Infantil</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" style="margin-bottom:2%">
+        <div class="col-md-12">
+          <div class="custom-file">
+            <label class="custom-file-label" for="imageLink">Escolha o banner do evento</label>
+            <input formControlName="imageLink" type="file" class="custom-file-control" id="imageLink">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="startDate">Data de Inicio</label><span style="color:red">*</span>
+          <input formControlName="startDate" type="date" class="form-control" id="startDate">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="startHour">Hora de Inicio</label><span style="color:red">*</span>
+          <input formControlName="startHour" type="time" class="form-control" id="startHour">
+        </div>
+
+        <div class="col-md-2"></div>
+
+        <div class="form-group col-md-3">
+          <label for="endDate">Data Final</label><span style="color:red">*</span>
+          <input formControlName="endDate" type="date" class="form-control" id="endDate">
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="endHour">Hora Final</label><span style="color:red">*</span>
+          <input formControlName="endHour" type="time" class="form-control" id="endHour">
+        </div>
+
+
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="location">Local</label><span style="color:red">*</span>
+          <input formControlName="location" type="text" class="form-control" id="location"
+            placeholder="Auditório UFPB em Mamanguape">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="address">Endereço do Local</label><span style="color:red">*</span>
+          <input formControlName="address" type="text" class="form-control" id="adress"
+            placeholder="Av. Santa Elizabeth 123">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="city">Cidade</label><span style="color:red">*</span>
+          <select formControlName="city" id="city" class="form-control">
+            <option selected disabled>Escolha...</option>
+            <option>Baía da Traição</option>
+            <option>Mamanguape</option>
+            <option>Marcação</option>
+            <option>Rio Tinto</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="paid">Tipo de ingresso</label><span style="color:red">*</span>
+          <select formControlName="freePaid" id="paid" class="form-control">
+            <option selected disabled>Escolha...</option>
+            <option>Pago</option>
+            <option>Gratuito</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Descrição</label><span style="color:red">*</span>
+        <textarea formControlName="description" class="form-control" name="description" id="description" rows="2"
+          placeholder="Descreva seu evento..."></textarea>
+      </div>
+      <button [disabled]="!eventForm.valid" type="submit" class="btn btn-primary btnSubmit mb-4 col-sm-12">Criar
+      </button>
+    </form>
+  </div>
+</div> -->

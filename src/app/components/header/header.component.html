@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-color shadow">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="[ '/']">
+      <img src="./assets/images/logo-horizontal.png" alt="logo" style="width:120px;" class="margin">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <ng-container *ngIf="isLoggedIn; else elseTemplate">
+          <li class="nav-item">
+            <a class="nav-link text-white" [routerLink]="[ '/dashboard/criar-evento']">CRIAR EVENTO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" [routerLink]="[ '/dashboard/meus-eventos']">MEUS EVENTOS</a>
+          </li>&nbsp;
+          <li class="nav-item dropdown">
+            <a class="btn btn-outline-primary btn-sm  nav-link dropdown-toggle text-white" id="navbarDropdown"
+              role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{admin.user.name | uppercase}}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
+              <a style="color:#007BFF" [routerLink]="['/meus-interesses']" class="dropdown-item"><span><i
+                    class="fas fa-list-ul feather"></i></span>&nbsp;Lista de interesses</a>
+              <a style="color:#007BFF" [routerLink]="['/dashboard']" class="dropdown-item"><span><i
+                    class="fas fa-user-alt feather"></i></span>&nbsp;Minha conta</a>
+              <div class="dropdown-divider"></div>
+              <a style="color:#007BFF" class="dropdown-item" (click)="logout()" [routerLink]="['/']"><span><i
+                    class="fas fa-sign-out-alt feather"></i></span>&nbsp;Sair</a>
+            </div>
+          </li>
+        </ng-container>
+
+        <ng-template #elseTemplate>
+          <li class="nav-item">
+            <a class="nav-link text-white" data-target="#exampleModal2" data-toggle="modal" href="#">CADASTRE-SE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" data-target="#exampleModal" data-toggle="modal" href="#">LOGIN</a>
+          </li>
+        </ng-template>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 d-none bg-light d-md-block sidebar shadow">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column" style="margin-top: 30px;">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}"><span><i class="fas fa-home feather"></i></span>
+              Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/meus-eventos']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}"><span><i class="fa fa-calendar-alt feather"></i></span>
+              Meus Eventos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/criar-evento']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}"><span><i class="far fa-plus-square feather"></i></span> Criar
+              Evento</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> -->

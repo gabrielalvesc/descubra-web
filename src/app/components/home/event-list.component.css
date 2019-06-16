@@ -1,0 +1,426 @@
+/*=========== Form Login MOdal ==========*/
+
+.btn-primary{
+    background-color: #000935;
+    border: none;
+
+}
+
+
+.btn-primary:active{
+    background-color: #000f5a!important;
+}
+
+/*======= Card Eventos =======*/
+
+.card-img-top{
+    width: auto;
+    height: 320px;
+}
+
+@media screen and (max-width:600px){
+    #card-style{
+        margin-left: 1%;
+    }
+}
+
+.card-style {
+    margin-bottom: 15px;
+    margin-right: 15px;
+    max-width: 20rem;
+    min-height: 20rem;
+}
+
+.image-event {
+    margin-left: -15px;
+    width: 19.9rem;
+}
+
+.calendar-day {    
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: #ddd;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-weight: 300;
+    font-size: 26px;
+    line-height: 31px;    
+}
+
+.calendar-month {
+    display: block;
+    background: #fa565a;
+    font-size: 10px;
+    line-height: 8px;
+    font-weight: bold;
+    padding: 5px 0;
+    margin: 0px 0 0 0;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-top: 1px solid #fa565a;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.calendar-box {
+    background: #ffffff;
+    color: #666666;
+    width: 50px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: bold;
+    padding: 0;
+    float: left;
+    /* margin-bottom: -1px;
+    margin-left: -16px; */
+}
+
+.navbar-color {
+    background: #000935/*8811c5*/
+}
+
+.body-style {
+    font-weight: 500;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+/* style="padding-bottom: 10px; margin-left: -15px; margin-right: -14.9px " */
+/*========== Barra de Pesquisa ==========*/
+.barrapesquisa{
+    width: 300px;
+    height: 50px;
+    padding: 20px;
+    margin: 20px;  
+    border-width: 20px;
+    border-radius: 100px;
+    
+    
+    background-color:rgb(255, 255, 255);
+    box-shadow: 5px 5px 5px rgb(195, 195, 195);
+}
+
+
+
+/* 
+.form-control{
+    border-radius: 100px;
+    border: none;
+    box-shadow: 5px 5px 5px rgb(195, 195, 195);
+} */
+
+.dropdown-toggle{
+    height: 38px;
+    width: 200px;
+    border-radius: 100px;
+    border:none;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px rgb(195, 195, 195);
+    position: absolute;
+    right: 0px;
+}
+
+.botaopesquisa{
+    height: 38px;
+    border-radius: 100px;
+    border:none;
+    background-color: #000935;
+    position: absolute;
+    right: -10px;
+}
+
+
+/*========== Modal Mais informações - Eventos ==========*/
+
+.modal-title{
+    font-weight: bold;
+}
+
+.modal-body strong, p, span{
+    color: #666666;
+
+}
+
+.italico{
+    font-style: italic;
+}
+
+.quadrado{
+    width: 170px;
+    height: 170px;
+    border: none;
+    border-radius: 10px;
+    /* background-color: rgb(167, 92, 92); */
+}
+
+/* Parallax */
+.parallax{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-around;
+    position: relative;
+    width: 100%;
+}
+
+.parallax section {
+    width: 100%;
+    height: 100vh;
+    flex: 1;
+    display: flex;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.parallax section .image {
+    background-image: url(../../../assets/images/img5.png);
+}
+.parallax section .image2 {
+    background-image: url(../../../assets/images/img3.png);
+}
+
+.parallax section .image {
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 500;
+    opacity: 0.7;
+}
+
+.parallax section .image2 {
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 500;
+    opacity: 0.7;
+}
+
+.parallax section .stuff {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    width: 100%;
+    max-width: 70%;
+    justify-content: center;
+    text-align: center;
+    z-index: 1000;
+    color: white;
+    margin: 0 auto;
+    font-size: 26px;
+    position: relative;
+}
+.parallax section .stuff h2 {
+    margin: 0px;
+}
+.parallax section .stuff:before, .container section .stuff:after {
+    width: 100%;
+    height: 1px;
+    display: block;
+    background-color: white;
+    content: "";
+    margin: 30px 0;
+}
+
+/* nav ul li a {
+    color: #000935;
+} */
+
+/* ========== SEARCH =========== */
+@media screen and (min-width: 768px){
+    #goevents {
+        color:#000935;
+        font-size: 60px;
+    }
+}
+
+@media screen and (max-width:560px){
+    #goevents {
+        color:#000935;
+        font-size: 40px;
+    }
+}
+
+.estiloTipografia{
+    
+    font-size: 30px;
+    font-weight: lighter;
+    color: #2699FB;
+}
+
+.search-sec{
+    margin-top: 3%;
+    padding: 2rem;
+    font-weight: bold;
+}
+.search-slt{
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+    border-radius: 25px 0px 0px 25px;
+    font-weight: bold;
+}
+
+.search-slt2{
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+    border-radius: 0px;
+    font-weight: bold;
+}
+
+.fa-search{
+    margin-left: 2%;
+    color: #ffffff;
+}
+
+.wrn-btn{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius: 0px 25px 25px 0px;
+    background-color: #000935;
+    font-weight: bold;
+}
+
+.wrn-btn:active{
+    background-color: #000f5a!important;
+}
+
+
+@media (min-width: 992px){
+    .search-sec{
+        position: relative;
+        /* top: -114px;
+        background: rgba(26, 70, 104, 0.51); */
+    }
+    
+}
+
+@media screen and (min-width: 768px){
+    .wrn-btn {
+        width:17em;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .margin {
+        margin-left: 30px;
+    }
+
+    .margin-text {
+        margin-left: 28px;
+    }
+    
+}
+
+/* ========= switch =========== */
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /* Maps */
+  agm-map {
+    height: 300px;
+  }
+
+
+  /*======= Scroll Top Button =======*/
+ .gotopbtn{
+     position: fixed;
+     width: 50px;
+     height: 50px;
+     background: #949494;
+     bottom: 40px;
+     right: 50px;
+
+     text-decoration: none;
+     text-align: center;
+     line-height: 50px;
+     color: white;
+     font-size: 22px;
+     border-radius: 25px;
+ }

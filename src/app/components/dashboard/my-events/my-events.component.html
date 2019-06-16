@@ -1,0 +1,425 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="col-md-10 col-sm-12 offset-1" style="margin-top: 100px; margin-bottom: 50px">
+    <div class="box-body">
+      <h1 style="font-weight: 100px; color: #000935;">Meus eventos</h1>
+
+      <!--       <div class="" *ngFor="let event of listEventsAdm">
+        <div class="card mb-2 shadow">
+          <div class="card-body">
+            <span style="font-weight:bold; margin-left: 2%;">{{event.name | uppercase}}</span>
+            <span class="float-right ">
+              <a class="mr-2">
+                <i data-toggle="modal" class="fas fa-info-circle" style="color:black;" placement="top"
+                  ngbTooltip="Mais informações" [attr.data-target]="'#showMoreModal' + event.eventId"></i>
+              </a>
+              <a class="mr-2" (click)="edit(event.eventId)">
+                <i class="far fa-edit" style="color:blue;" placement="top" ngbTooltip="Editar evento"></i>
+              </a>
+              <a>
+                <i data-toggle="modal" class="far fa-trash-alt" style="color:red;" placement="top"
+                  ngbTooltip="Excluir evento" [attr.data-target]="'#confirmDeleteEventModal' + event.eventId"></i>
+              </a> -->
+
+      <ng-container *ngIf="listEventsAdm.length == 0; else elseTemplate">
+        <div align="center">
+          <br><br>
+          <h2 style="color: blue">Opsss... Você ainda não criou nenhum evento :(</h2>
+          <a class="btn btn-primary text-white" [routerLink]="[ '/dashboard/criar-evento' ]"><i
+              class="fas fa-plus"></i>&nbsp;Criar evento</a>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <br>
+        <h2>Eventos futuros</h2>
+        <div class="" *ngFor="let event of listEventsAdm">
+          <ng-container *ngIf="event.endDate >= today">
+            <div class="card mb-2 shadow">
+              <div class="card-body">
+                <span style="font-weight:bold">{{event.name | uppercase}}</span>
+                <span class="float-right ">
+
+                  <a class="mr-2">
+                    <i data-toggle="modal" class="fas fa-eye" style="color:black;" placement="top"
+                      ngbTooltip="Pré-Visualização" [attr.data-target]="'#showMoreModal' + event.eventId"
+                      (click)="viewInfo(event.eventId)"></i>
+                  </a>
+                  <a class="mr-2" (click)="edit(event.eventId)">
+                    <i class="far fa-edit" style="color:blue;" placement="top" ngbTooltip="Editar"></i>
+                  </a>
+                  <a>
+                    <i data-toggle="modal" class="far fa-trash-alt" style="color:red;" placement="top"
+                      ngbTooltip="Excluir" [attr.data-target]="'#confirmDeleteEventModal' + event.eventId"></i>
+                  </a>
+
+                  <!-- Modal para excluir evento -->
+                  <div class="modal fade" [attr.id]="'confirmDeleteEventModal' + event.eventId" tabindex="-1"
+                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Excluir evento</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Deseja realmente excluir o evento {{event.name}} ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                          <button type="button" class="btn btn-success" (click)="delete(event.eventId)"
+                            data-dismiss="modal">Sim</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Modal para mais informações sobre evento -->
+                  <div class="modal fade" [attr.id]="'showMoreModal' + event.eventId" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">{{event.name | uppercase}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-5">
+                              <img class="quadrado" src="{{event.imageLink}}" alt="">
+
+                            </div>
+
+                            <div class="col-md-7">
+                              <strong>Endereço: </strong> <span>{{event.address}}</span><br><br>
+                              <strong>Data: </strong> <span>{{event.startDate | date: fullDate}}</span><br><br>
+                              <strong>Hora: </strong> <span>{{event.startHour}}</span><br><br>
+                              <strong>Categoria: </strong> <span>{{event.category}}</span><br><br>
+                              <strong>Ingresso: </strong> <span>{{event.freePaid}}</span><br><br>
+                            </div>
+                          </div>
+
+                          <strong>Descrição: </strong>
+                          <p class="italico">{{event.description}}</p>
+
+                          <div>
+                            <strong>Número de interesses: </strong> <span style="color:red">{{interests}}&nbsp;<i
+                                class="fas fa-heart"></i></span>
+                          </div><br>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-primary" (click)="edit(event.eventId)"
+                            data-dismiss="modal">Editar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </span>
+              </div>
+            </div>
+          </ng-container>
+
+
+        </div>
+      </ng-template>
+
+      <!-- EVENTOS PASSADOS -->
+      <div *ngIf="listEventsAdm.length != 0">
+        <br>
+        <h2>Eventos que já ocorreram</h2>
+        <div *ngFor="let event of listEventsAdm">
+          <div *ngIf="event.endDate < today">
+            <div class="card mb-2 shadow">
+              <div class="card-body">
+                <span style="font-weight:bold">{{event.name | uppercase}}</span>
+                <span class="float-right ">
+                  <a class="mr-2">
+                    <i data-toggle="modal" class="fas fa-retweet" style="color:darkblue;" placement="top"
+                      ngbTooltip="Republicar" [attr.data-target]="'#republicarModal' + event.eventId"
+                      (click)="republish(event.eventId)"></i>
+                  </a>
+                  <a class="mr-2">
+                    <i data-toggle="modal" class="fas fa-chart-line" style="color:green;" placement="top"
+                      ngbTooltip="Análise" [attr.data-target]="'#analyzeModal' + event.eventId"
+                      (click)="viewAnalyze(event.eventId, event.category)"></i>
+                  </a>
+                  <a class="mr-2">
+                    <i data-toggle="modal" class="fas fa-star" style="color:#FC0;" placement="top"
+                      ngbTooltip="Avaliações" (click)="viewFeedbacks(event.eventId)"></i>
+                  </a>
+                  <a class="mr-2">
+                    <i data-toggle="modal" class="fas fa-info-circle" style="color:black;" placement="top"
+                      ngbTooltip="Pré-Visualização" [attr.data-target]="'#showMoreModal' + event.eventId"
+                      (click)="viewInfo(event.eventId)"></i>
+                  </a>
+
+                  <a>
+                    <i data-toggle="modal" class="far fa-trash-alt" style="color:red;" placement="top"
+                      ngbTooltip="Excluir" [attr.data-target]="'#confirmDeleteEventModal' + event.eventId"></i>
+                  </a>
+
+                  <!-- Modal para excluir evento -->
+                  <div class="modal fade" [attr.id]="'confirmDeleteEventModal' + event.eventId" tabindex="-1"
+                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Excluir evento</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Deseja realmente excluir o evento {{event.name}} ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                          <button type="button" class="btn btn-success" (click)="delete(event.eventId)"
+                            data-dismiss="modal">Sim</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- Modal da analise -->
+                  <div class="modal fade" [attr.id]="'analyzeModal' + event.eventId" tabindex="-1" role="dialog"
+                    aria-labelledby="analyzeModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Análise</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <strong>Seu rating médio é: </strong><span
+                            style="font-size:25px; color: #000935">{{ratingAdm}}</span><br><br>
+                          <strong>O rating médio do evento foi: </strong><span
+                            style="font-size:25px; color: #000935">{{ratingEvent}}</span> <br><br>
+                          <strong>O rating médio de eventos da categoria {{event.category | lowercase }} é:
+                          </strong><span style="font-size:25px; color: #000935">{{ratingCategory}}</span>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Modal para mais informações sobre evento -->
+                  <div class="modal fade" [attr.id]="'showMoreModal' + event.eventId" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">{{event.name | uppercase}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-5">
+                              <img class="quadrado" src="{{event.imageLink}}" alt="">
+
+                            </div>
+
+                            <div class="col-md-7">
+                              <strong>Endereço: </strong> <span>{{event.address}}</span><br><br>
+                              <strong>Data: </strong> <span>{{event.startDate | date: fullDate}}</span><br><br>
+                              <strong>Hora: </strong> <span>{{event.startHour}}</span><br><br>
+                              <strong>Categoria: </strong> <span>{{event.category}}</span><br><br>
+                              <strong>Ingresso: </strong> <span>{{event.freePaid}}</span><br><br>
+                            </div>
+                          </div>
+
+                          <strong>Descrição: </strong>
+                          <p class="italico">{{event.description}}</p>
+
+                          <div>
+                            <strong>Número de interesses: </strong> <span style="color:red">{{interests}}&nbsp;<i
+                                class="fas fa-heart"></i></span>
+                          </div><br>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Modal Republicar -->
+                  <div class="modal fade bd-example-modal-lg" [attr.id]="'republicarModal' + event.eventId"
+                    tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">{{event.name | uppercase}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container">
+                            <div class="col-md-12">
+                  
+                              <form [formGroup]="eventForm">
+              
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="name">Nome</label><span style="color:red">*</span>
+                                    <input formControlName="name" type="text" class="form-control" id="name"
+                                      placeholder="Digite aqui o nome do seu evento">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="category">Categoria</label><span style="color:red">*</span>
+                                    <select formControlName="category" id="category" class="form-control">
+                                      <option selected>Escolha...</option>
+                                      <option>Gastronômico</option>
+                                      <option>Religioso</option>
+                                      <option>Esportivo</option>
+                                      <option>Festa</option>
+                                      <option>Congresso</option>
+                                      <option>Infantil</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-row" style="margin-bottom:2%">
+
+                                  <div class="col-md-9">
+
+                                    <label for="imageLink">Inserir imagem por URL</label>
+
+                                    <div class="input-group">
+                                      <input (keyup)="onKeyUp($event)" formControlName="imageLink" type="text"
+                                        class="form-control" id="imageLink" placeholder="Colar aqui o URL da imagem."
+                                        aria-describedby="botaoInserir">
+
+                                    </div>
+
+                                    <p style="font-size: 11px;" class="bg-secundary">Selecione apenas as imagens que
+                                      você confirmou ter a
+                                      licença para usar.</p>
+                                  </div>
+
+                                  <div class="col-md-3">
+                                    <img class="quadrado" src="{{ imagemUrl }}" alt="Imagem não inserida">
+
+                                  </div>
+
+                                </div>
+
+                                <div class="form-row" style="margin-bottom: 2%">
+                                  <div class="col-md-6">
+
+                                    <label for="videoLink">Inserir video do YouTube</label><span
+                                      style="font-size: 11px;"> (Opcional)</span>
+
+                                    <div class="input-group">
+                                      <input (keyup)="onKeyUp($event)" formControlName="videoLink" type="text"
+                                        class="form-control" id="videoLink" placeholder="Colar aqui o URL do video.">
+
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-3">
+                                    <label for="startDate">Data de Inicio</label><span style="color:red">*</span>
+                                    <input formControlName="startDate" type="date" min="{{today}}" class="form-control" id="startDate">
+                                  </div>
+
+                                  <div class="form-group col-md-2">
+                                    <label for="startHour">Hora de Inicio</label><span style="color:red">*</span>
+                                    <input formControlName="startHour" type="time" class="form-control" id="startHour">
+                                  </div>
+
+                                  <div class="col-md-2"></div>
+
+                                  <div class="form-group col-md-3">
+                                    <label for="endDate">Data Final</label><span style="color:red">*</span>
+                                    <input formControlName="endDate" type="date" min="{{today}}" class="form-control" id="endDate">
+                                  </div>
+
+                                  <div class="form-group col-md-2">
+                                    <label for="endHour">Hora Final</label><span style="color:red">*</span>
+                                    <input formControlName="endHour" type="time" class="form-control" id="endHour">
+                                  </div>
+
+
+                                </div>
+
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="location">Local</label><span style="color:red">*</span>
+                                    <input formControlName="location" type="text" class="form-control" id="location"
+                                      placeholder="Auditório UFPB em Mamanguape">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="address">Endereço do Local</label><span style="color:red">*</span>
+                                    <input formControlName="address" type="text" class="form-control" id="adress"
+                                      placeholder="Av. Santa Elizabeth 123">
+                                  </div>
+                                </div>
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="city">Cidade</label><span style="color:red">*</span>
+                                    <select formControlName="city" id="city" class="form-control">
+                                      <option selected disabled>Escolha...</option>
+                                      <option>Baía da Traição</option>
+                                      <option>Mamanguape</option>
+                                      <option>Marcação</option>
+                                      <option>Rio Tinto</option>
+                                    </select>
+                                  </div>
+
+                                  <div class="form-group col-md-6">
+                                    <label for="paid">Tipo de ingresso</label><span style="color:red">*</span>
+                                    <select formControlName="freePaid" id="paid" class="form-control">
+                                      <option selected disabled>Escolha...</option>
+                                      <option>Pago</option>
+                                      <option>Gratuito</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="description">Descrição</label><span style="color:red">*</span>
+                                  <textarea formControlName="description" class="form-control" name="description"
+                                    id="description" rows="2" placeholder="Descreva seu evento..."></textarea>
+                                </div>
+                               
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button [disabled]="!eventForm.valid" type="submit" class="btn btn-primary" (click)="onSubmit(eventForm.value)">Republicar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import '~bootstrap/dist/css/bootstrap.min.css';*/
+@import '~ngx-toastr/toastr.css';
+@import '~css-star-rating/css/star-rating.min.css';
+
+
+#toast-container > div { 
+    opacity: 1;
+}
+
+/* =========== Conteúdo da Home ============*/
+body {
+    /* font-weight: 500;
+    font-size: 18px; */
+    /* color: #ffffff; */
+    /* background: rgb(255, 255, 255); */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* font-weight: 400; */
+    /* background:#F5F5F5; */
+    background: #F4F3F3
+}
+
+/* .nav-link{
+    color: white!important;
+} */
+
+/* .bg-dark{
+    background: transparent!important;
+} */
+
+.carousel-item{
+    height: 100vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.carousel-caption h1{
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.arrowGif {
+    position: center;
+    width: 25px!important;
+    margin-left: 50px!important;
+}
+
+.mudaCor{
+    background-color: rgb(12, 50, 83, 0.9)!important;
+    color:#000!important;
+    transition: background-color 1000ms linear;
+}
+
+
+
+/* =========== Media Queries ============*/
+
+/* Small */
+@media screen and (max-width: 540px){
+	.carousel-inner .carousel-caption h1{
+        font-size: 20px;
+        padding-bottom: 15%;
+    }
+    
+    .carousel-inner .carousel-caption h4{
+        font-size: 12px;
+        padding-bottom: 5%;
+		
+    }
+
+    .arrowGif{
+        margin-right: 45%;
+    }
+}
+
+/* Medium */
+@media screen and (min-width: 768px){
+	.carousel-inner .carousel-caption h1{
+        font-size: 30px;
+        margin-bottom: 80px;
+    }
+    
+    .carousel-inner .carousel-caption h4{
+        font-size: 22px;
+        
+		
+    }
+}
+
+/* Large */
+@media screen and (min-width: 960px){
+	.carousel-inner .carousel-caption h1{
+        font-size: 50px;
+    }
+    .carousel-inner .carousel-caption h4{
+        font-size: 22px;
+    }
+}
+
+/* Extra Large */
+@media screen and (min-width: 1200px){
+    
+	
+}

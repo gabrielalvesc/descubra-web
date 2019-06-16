@@ -1,0 +1,539 @@
+<app-header></app-header>
+
+
+<div class="parallax">
+  <section>
+    <div class="image" data-type="background" data-speed="2"></div>
+    <div class="stuff" data-type="content">
+      <h1 style="font-weight:bold; font-size: 50px">ENCONTRE EVENTOS NA SUA REGIÃO</h1>
+    </div>
+  </section>
+</div>
+
+
+
+
+
+<!-- Modal Login -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+
+            <form [formGroup]="loginForm">
+
+
+              <div style="margin-top: 50px" class="form-group">
+                <label for="email">Email</label>
+                <input formControlName="email" name="email" type="email" class="form-control is-invalid" id="email"
+                  [class.is-invalid]="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"
+                  [class.is-valid]="!loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)"
+                  placeholder="airton.felix@dce.ufpb.br" email required>
+                <div
+                  *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+                  <div *ngIf="loginForm.controls['email'].errors.email" style="color:#DC3545">
+                    Email inválido
+                  </div>
+                  <div *ngIf="loginForm.controls['email'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="senha">Senha</label>
+                <input name="senha" type="password" formControlName="password" class="form-control" id="senha"
+                  [class.is-invalid]="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+                  [class.is-valid]="!loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+                  placeholder="Senha" required minlength="8">
+                <div
+                  *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                  <div *ngIf="loginForm.controls['password'].errors.minlength" style="color:#DC3545">
+                    Minímo 8 caracteres
+                  </div>
+                  <div *ngIf="loginForm.controls['password'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <button (click)="onSubmitLogin(loginForm.value)" [disabled]="!loginForm.valid" type="submit" id="btnLogin"
+                class="btn-block btn btn-primary text-white" data-dismiss="modal">Entrar</button>
+
+              <div style="margin-top: 30px" class="row justify-content-center">
+                <span>Esqueceu a senha?&nbsp;</span> <a href="#" data-toggle="modal" data-target="#recoveryModal"
+                  data-dismiss="modal">Clique aqui.</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 50px" class="modal-footer">
+        <div class="row justify-content-center col-md-12">
+          <p>Não possui uma conta?&nbsp;</p> <a href="#" data-dismiss="modal" data-toggle="modal"
+            data-target="#exampleModal2">Cadastre-se!</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Modal recuperação senha -->
+<div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" id="content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Recuperar de senha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mb-3">
+        <div class="row justify-content-center">
+          <div class="col-md-8" id="body">
+
+            <form [formGroup]="recoveryForm" (ngSubmit)="onSubmitRecovery(recoveryForm.value)">
+
+              <div class="form-group">
+                <label for="emailRecovery">Email</label>
+                <input formControlName="emailRecovery" name="emailRecovery" type="email" class="form-control"
+                  id="emailRecovery" placeholder="Digite seu email" required email
+                  [class.is-invalid]="recoveryForm.controls['emailRecovery'].invalid && (recoveryForm.controls['emailRecovery'].dirty || recoveryForm.controls['emailRecovery'].touched)"
+                  [class.is-valid]="!recoveryForm.controls['emailRecovery'].invalid && (recoveryForm.controls['emailRecovery'].dirty || recoveryForm.controls['emailRecovery'].touched)">
+                <div
+                  *ngIf="recoveryForm.controls['emailRecovery'].invalid && (recoveryForm.controls['emailRecovery'].dirty || recoveryForm.controls['emailRecovery'].touched)">
+                  <div *ngIf="recoveryForm.controls['emailRecovery'].errors.email" style="color:#DC3545">
+                    Email inválido
+                  </div>
+                  <div *ngIf="recoveryForm.controls['emailRecovery'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <button [disabled]="!recoveryForm.valid" type="submit" class="btn-block btn btn-primary text-white"
+                data-toggle="modal" data-target="#testeModal">Enviar</button>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Modal Cadastro -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="row justify-content-center">
+          <div class="col-sm-8">
+            <form [formGroup]="cadastroForm" (ngSubmit)="onSubmitCadastro(cadastroForm.value)">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input formControlName="name" name="nome" type="text" class="form-control" id="nome"
+                  placeholder="Digite seu nome" required autocomplete="off"
+                  [class.is-invalid]="cadastroForm.controls['name'].invalid && (cadastroForm.controls['name'].dirty || cadastroForm.controls['name'].touched)"
+                  [class.is-valid]="!cadastroForm.controls['name'].invalid && (cadastroForm.controls['name'].dirty || cadastroForm.controls['name'].touched)">
+                <div
+                  *ngIf="cadastroForm.controls['name'].invalid && (cadastroForm.controls['name'].dirty || cadastroForm.controls['name'].touched)">
+                  <div *ngIf="cadastroForm.controls['name'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">Sobrenome</label>
+                <input formControlName="lastName" name="lastName" type="text" class="form-control" id="lastName"
+                  placeholder="Digite seu sobrenome" required autocomplete="off"
+                  [class.is-invalid]="cadastroForm.controls['lastName'].invalid && (cadastroForm.controls['lastName'].dirty || cadastroForm.controls['lastName'].touched)"
+                  [class.is-valid]="!cadastroForm.controls['lastName'].invalid && (cadastroForm.controls['lastName'].dirty || cadastroForm.controls['lastName'].touched)">
+                <div
+                  *ngIf="cadastroForm.controls['lastName'].invalid && (cadastroForm.controls['lastName'].dirty || cadastroForm.controls['lastName'].touched)">
+                  <div *ngIf="cadastroForm.controls['lastName'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="emailCadastro">Endereço de email</label>
+                <input formControlName="email" name="emailCadastro" type="email" class="form-control" id="emailCadastro"
+                  placeholder="descubra@descubra.com" required email autocomplete="off"
+                  [class.is-invalid]="cadastroForm.controls['email'].invalid && (cadastroForm.controls['email'].dirty || cadastroForm.controls['email'].touched)"
+                  [class.is-valid]="!cadastroForm.controls['email'].invalid && (cadastroForm.controls['email'].dirty || cadastroForm.controls['email'].touched)">
+                <div
+                  *ngIf="cadastroForm.controls['email'].invalid && (cadastroForm.controls['email'].dirty || cadastroForm.controls['email'].touched)">
+                  <div *ngIf="cadastroForm.controls['email'].errors.email" style="color:#DC3545">
+                    Email inválido
+                  </div>
+                  <div *ngIf="cadastroForm.controls['email'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="senhaCadastro">Senha</label>
+                <input formControlName="password" name="senhaCadastro" type="password" class="form-control"
+                  id="senhaCadastro" required minlength="8" placeholder="Digite uma senha"
+                  [class.is-invalid]="cadastroForm.controls['password'].invalid && (cadastroForm.controls['password'].dirty || cadastroForm.controls['password'].touched)"
+                  [class.is-valid]="!cadastroForm.controls['password'].invalid && (cadastroForm.controls['password'].dirty || cadastroForm.controls['password'].touched)">
+                <div
+                  *ngIf="cadastroForm.controls['password'].invalid && (cadastroForm.controls['password'].dirty || cadastroForm.controls['password'].touched)">
+                  <div *ngIf="cadastroForm.controls['password'].errors.minlength" style="color:#DC3545">
+                    Minímo 8 caracteres
+                  </div>
+                  <div *ngIf="cadastroForm.controls['password'].errors.required" style="color:#DC3545">
+                    Campo obrigatório
+                  </div>
+                </div>
+              </div>
+
+              <button [disabled]="!cadastroForm.valid" type="submit"
+                class="btn-block btn btn-primary text-white">Cadastrar</button>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="margin-top: 30px" class="modal-footer">
+        <div class="row justify-content-center col-md-12">
+          <p>Já possui uma conta?&nbsp;</p> <a href="#" data-dismiss="modal" data-toggle="modal"
+            data-target="#exampleModal">Faça login!</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- Barra de Pesquisa -->
+<section class="search-sec">
+  <div class="container">
+    <div class="row">
+      <div class="row col-sm-12 margin-text" id="goevents">
+        Encontre os principais eventos
+      </div>
+      <br>
+      <div class="row col-sm-12 margin-text estiloTipografia">
+        Filtre por cidade e tipo de evento
+      </div>
+    </div>
+    <br>
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit(filterForm.value)">
+      <div class="row margin">
+        <div class="col-md-11">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+              <select (click)="value(filterForm.value.time)" formControlName="time" class="form-control search-slt"
+                id="filtroTime">
+                <option [ngValue]="null" disabled selected>Tempo</option>
+                <option>Todos</option>
+                <option>Futuros</option>
+                <option>No momento</option>
+              </select>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+              <select formControlName="category" class="form-control search-slt2" id="filtroCategoria">
+                <option [ngValue]="null" selected disabled>Categoria</option>
+                <option>Gastronômico</option>
+                <option>Religioso</option>
+                <option>Esportivo</option>
+                <option>Festa</option>
+                <option>Congresso</option>
+                <option>Infantil</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+              <select formControlName="city" class="form-control search-slt2" id="filtroCidade">
+                <option [ngValue]="null" disabled selected>Cidade</option>
+                <option>Baía da Traição</option>
+                <option>Mamanguape</option>
+                <option>Marcação</option>
+                <option>Rio Tinto</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+              <button type="submit" class="btn btn-primary wrn-btn">Pesquisar
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+
+
+
+<div class="container">
+  <div class="row" style=" margin-top:30px; margin-bottom: 5%; ">
+    <ng-container *ngIf="listEvents.length == 0; else notEmpty">
+      <div class="margin-text col-sm-12" style="color:black; font-size: 30px;">
+        Nenhum evento encontrado
+      </div>
+    </ng-container>
+    <ng-template #notEmpty>
+
+      <div *ngFor="let event of listEvents">
+        <div *ngIf="event.endDate >= today">
+          <div class="col-sm-12 col-md-3 p-3 offset-1" id="card-style">
+            <div class="card shadow" style="width: 20rem;">
+              <img class="card-img-top" src="{{event.imageLink}}" style="height:280px;" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title" style="font-size: 25px; color:#3E3D3D; font-weight: bold">{{event.name}} </h5>
+                <p style="font-weight:bold; font-size: 14px; color:#666666">{{event.location}}</p>
+                <div style="color:grey; font-size:15px">
+                  <i class="far fa-clock"></i>&nbsp;{{event.startHour}}h
+                </div>
+                <div style="color:grey; font-size:15px">
+                  <i class="fas fa-map-marker-alt"></i> {{event.city}}, PB
+                </div>
+                <div class="calendar-box pt-1">
+                  <div class="calendar-month">{{event.startDate | date:'MMM'}}</div>
+                  <div class="calendar-day">{{event.startDate | date: 'dd'}}</div>
+                </div>
+                <div align="right" class="pt-4"><a href="#" data-toggle="modal"
+                    [attr.data-target]="'#showMoreModal' + event.eventId" class="btn btn-link"
+                    (click)="buscarInteresses(event.eventId)">Ler mais...&nbsp;<i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <!--Modal com mais informações sobre os eventos-->
+                <div class="modal fade" [attr.id]="'showMoreModal' + event.eventId" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{event.name}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-5">
+                            <img src="{{event.imageLink}}" class="quadrado">
+                          </div>
+
+                          <div class="col-md-7">
+                            <strong>Endereço: </strong> <span>{{event.address}}</span><br><br>
+                            <strong>Data: </strong> <span>{{event.startDate | date: fullDate}}</span><br><br>
+                            <strong>Hora: </strong> <span>{{event.startHour}}</span><br><br>
+                            <strong>Categoria: </strong> <span>{{event.category}}</span><br><br>
+                            <strong>Ingresso: </strong> <span>{{event.freePaid}}</span><br><br>
+                          </div>
+                        </div>
+
+                        <strong>Descrição: </strong>
+                        <p class="italico">{{event.description}}</p>
+
+                        <div>
+                          <strong>Número de interesses: </strong> <span style="color:red">{{interests}}&nbsp;<i
+                              class="fas fa-heart"></i></span>
+                        </div><br>
+
+
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" data-toggle="modal"
+                          data-target="#modalMaps" (click)="viewMaps(event.eventId)">Veja no mapa</button>&nbsp;
+
+                        <span *ngIf="event.videoLink != ''">
+                          <button *ngIf="event.videoLink != null" type="button" class="btn btn-outline-danger"
+                            data-dismiss="modal" data-toggle="modal"
+                            [attr.data-target]="'#videoModal' + event.videoLink">Video Promocional</button>
+                        </span>
+
+
+                      </div>
+                      <div class="modal-footer">
+                        <div class="mr-auto">
+                          <ng-container *ngIf="isLoggedIn; else elseDisabled">
+                            <ng-container *ngIf="eventOfadmin; else elseTemplate">
+                              <p style="color:darkblue">Este evento foi criado por você ;)</p>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                              <h6>Se interessou pelo evento?</h6>
+                              <label class="switch">
+                                <input type="checkbox" [checked]="pressed" [disabled]="false" id="check"
+                                  (change)="showInterest(event.eventId, pressed)">
+                                <span class="slider round"></span>
+                              </label>
+                            </ng-template>
+                          </ng-container>
+                          <ng-template #elseDisabled>
+                            <h6>Se interessou pelo evento?</h6>
+                            <label class="switch">
+                              <input type="checkbox" [checked]="pressed" [disabled]="true" id="check">
+                              <span class="slider round"></span>
+                            </label><br>
+                            <a href="#" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal"
+                              style="font-size: 12px; color:red">Para demonstrar interesse entre na sua conta.</a>
+                          </ng-template>
+
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal mapa -->
+                <div class="modal fade" id="modalMaps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mapa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="15">
+                          <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                        </agm-map>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <!-- Modal Video  -->
+                <div class="modal fade" [attr.id]="'videoModal' + event.videoLink" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Video Promocional</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body-video">
+                        <youtube-player [width]="498" [videoId]="event.videoLink" (ready)="savePlayer($event)">
+                        </youtube-player>
+                      </div>
+                      <div class="modal-footer">
+                        <button (click)="pauseVideo()" type="button" class="btn btn-secondary"
+                          data-dismiss="modal">Sair</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-sm-11 col-md-4">
+        <div class="card card-style shadow" *ngFor="let event of listEvents">
+          <img class="card-img-top image-event"
+            src="https://charmouth.org/charmouth_village/wp-content/uploads/2016/07/SE3-286x180.jpg"
+            alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title" style="margin-bottom:1%;">
+              {{event.name}}</h4>
+            <p style="font-weight:bold; font-size: 14px; color:#666666">{{event.location}}</p>
+          </div>
+          <div>
+            <div class="calendar-box">
+              <div class="calendar-month">{{event.startDate | date:'MMM'}}</div>
+              <div class="calendar-day">{{event.startDate | date: 'dd'}}</div>
+            </div>
+            <div align="left" style="margin-bottom:-25px; margin-left: 38px">
+              <button data-toggle="modal" [attr.data-target]="'#showMoreModal' + event.eventId" class="btn btn-link">
+                <span><i class="fas fa-info-circle"></i></span> Ver mais...
+              </button>
+            </div>
+            <div style="margin-left: 50px; margin-top: 16px; font-size: 14px; color:gray">
+              <span>
+                <i class="far fa-clock"></i>&nbsp;{{event.startHour}}h
+              </span>&nbsp;
+              <span>
+                <i class="fas fa-map-marker-alt"></i> {{event.city}}/PB
+              </span>
+            </div>
+          </div>-->
+
+
+
+
+
+    </ng-template>
+
+  </div>
+</div>
+
+<div class="parallax">
+  <section>
+    <div class="image2" data-type="background" data-speed="7"></div>
+    <div class="stuff" data-type="content">
+      <h2 style="font-weight:bold; font-size: 50px">QUER DIVULGAR SEU EVENTO ?</h2>
+      <p class="text-white">CRIE UMA CONTA, É SIMPLES E RÁPIDO</p>
+    </div>
+  </section>
+</div>
+
+<!-- Return to Top -->
+<a href="#" class="gotopbtn">
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+<app-footer></app-footer>

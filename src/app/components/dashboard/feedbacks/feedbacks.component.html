@@ -1,0 +1,53 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="col-md-10 col-sm-12 offset-1" style="margin-top: 100px">
+    <div class="box-body">
+      <h1 style="font-weight: 100px; color: #000935;">Avaliações sobre o evento: {{event.name}}</h1>
+
+      <ng-container *ngIf="feedback.length == 0; else elseTemplate">
+        <div>
+          <br><br>
+          <h2 style="color: blue">Opsss... Ainda não há nenhum feedback para este evento.</h2>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div *ngFor="let f of feedback">
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <div style="color:#FC0; font-size: 30px;" *ngIf="f.stars == 1">
+                <i class="fas fa-star"></i>
+              </div>
+              <div style="color:#FC0; font-size: 30px;" class="pr-1" *ngIf="f.stars == 2">
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>
+              </div>
+              <div style="color:#FC0; font-size: 30px;" *ngIf="f.stars == 3">
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>
+              </div>
+              <div style="color:#FC0; font-size: 30px;" class="pr-1" *ngIf="f.stars == 4">
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>
+              </div>
+              <div style="color:#FC0; font-size: 30px;" class="pr-1" *ngIf="f.stars == 5">
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>&nbsp;
+                <i class="fas fa-star"></i>
+              </div>
+              <div style="margin-top:2%">
+                <h4>{{f.comment}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

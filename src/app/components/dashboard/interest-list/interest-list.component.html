@@ -1,0 +1,174 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="col-sm-12 col-md-10 offset-md-1" style="margin-top:100px">
+    <h1 style="font-weight: 100px; color: #000935">Meus interesses</h1>
+    <div class="" *ngFor="let event of listEvents">
+      <div class="card mb-2 shadow">
+        <div class="card-body">
+          <span style="font-weight:bold">{{event.name | uppercase}}</span>
+
+          <span class="float-right " style="font-size:18px">
+            <a *ngIf="event.endDate < today" class="mr-2">
+              <i data-toggle="modal" [attr.data-target]="'#modalFeedback' + event.eventId" class="far fa-thumbs-up"
+                style="color:blue;" placement="top" ngbTooltip="Avalie o evento"></i>
+            </a>
+
+            <a class="mr-2">
+              <i data-toggle="modal" class="fas fa-info-circle" style="color:black;" placement="top"
+                ngbTooltip="Mais informações" [attr.data-target]="'#showMoreModal' + event.eventId"></i>
+            </a>
+
+            <a>
+              <i data-toggle="modal" class="fas fa-times" style="color:red;" placement="top"
+                ngbTooltip="Remover da lista" [attr.data-target]="'#confirmDeleteEventModal' + event.eventId"></i>
+            </a>
+
+            <!-- Modal para excluir evento -->
+            <div class="modal fade" [attr.id]="'confirmDeleteEventModal' + event.eventId" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remover evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Deseja realmente remover o evento {{event.name}} da sua lista ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-success" (click)="removeEvent(event.eventId)"
+                      data-dismiss="modal">Sim</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal feedback -->
+            <div class="modal fade" [attr.id]="'modalFeedback' + event.eventId" tabindex="-1" role="dialog"
+              aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Avalie este evento!!!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <form [formGroup]="feedbackForm">
+
+                          {{feedbackForm.value | json}}
+                          
+                          <star-rating [starType]="'svg'" formControlName="rating"></star-rating>
+                          <!-- <div class="estrelas p-2" align="center">
+                            <input formControlName="rating" type="radio" id="cm_star-empty" name="rating" value=""
+                              checked />
+                            <label for="cm_star-1"><i class="fa"></i></label>&nbsp;
+                            <input formControlName="rating" type="radio" id="cm_star-1" name="rating" value="1" />
+                            <label for="cm_star-2"><i class="fa"></i></label>&nbsp;
+                            <input formControlName="rating" type="radio" id="cm_star-2" name="rating" value="2" />
+                            <label for="cm_star-3"><i class="fa"></i></label>&nbsp;
+                            <input formControlName="rating" type="radio" id="cm_star-3" name="rating" value="3" />
+                            <label for="cm_star-4"><i class="fa"></i></label>&nbsp;
+                            <input formControlName="rating" type="radio" id="cm_star-4" name="rating" value="4" />
+                            <label for="cm_star-5"><i class="fa"></i></label>&nbsp;
+                            <input formControlName="rating" type="radio" id="cm_star-5" name="rating" value="5" />
+                          </div> -->
+
+
+
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <textarea formControlName="comment" class="form-control" name="description"
+                                id="description" rows="2" placeholder="Descreva sua avaliação (opcional)"></textarea>
+                            </div>
+                          </div>
+                          
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button (click)="onSubmit(feedbackForm.value, event.eventId)" [disabled]="!feedbackForm.valid"
+                      type="submit" class="btn btn-primary text-white" style="background-color:#000f5a; border: none;"
+                      data-dismiss="modal">Enviar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal para mais informações sobre evento -->
+            <div class="modal fade" [attr.id]="'showMoreModal' + event.eventId" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{event.name | uppercase}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-5">
+                        <img src="{{event.imageLink}}" class="quadrado">
+                      </div>
+
+                      <div class="col-md-7">
+                        <strong>Endereço: </strong> <span>{{event.address}}</span><br><br>
+                        <strong>Data: </strong> <span>{{event.startDate | date: fullDate}}</span><br><br>
+                        <strong>Hora: </strong> <span>{{event.startHour}}</span><br><br>
+                        <strong>Categoria: </strong> <span>{{event.category}}</span><br><br>
+                        <strong>Ingresso: </strong> <span>{{event.freePaid}}</span><br><br>
+                      </div>
+                    </div>
+
+                    <strong>Descrição: </strong>
+                    <p class="italico">{{event.description}}</p>
+
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal" data-toggle="modal"
+                      data-target="#modalMaps" (click)="viewMaps(event.eventId)">Veja no mapa</button>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal mapa -->
+            <div class="modal fade" id="modalMaps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mapa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="15">
+                      <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                    </agm-map>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
